@@ -52,30 +52,118 @@ export default function ProfilePage() {
 
   if (!user) return <p>Loading...</p>;
 
-  return (
-    <div>
-      <h1>Profile</h1>
-      {editing ? (
-        <div>
-          <input
-            type="text"
-            value={updatedUser.name}
-            onChange={(e) => setUpdatedUser({ ...updatedUser, name: e.target.value })}
-          />
-          <input
-            type="email"
-            value={updatedUser.email}
-            onChange={(e) => setUpdatedUser({ ...updatedUser, email: e.target.value })}
-          />
-          <button onClick={handleSaveClick}>Save</button>
+    return (
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '100vh',
+      backgroundColor: '#f5f5f5',
+    }}>
+      <div style={{
+        backgroundColor: 'white',
+        padding: '2rem',
+        borderRadius: '8px',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+        width: '400px',
+      }}>
+        <h1 style={{ 
+          textAlign: 'center',
+          marginBottom: '1.5rem',
+          color: '#333',
+          fontSize: '1.8rem'
+        }}>
+          Profile
+        </h1>
+
+        {editing ? (
+          <div style={{ display: 'grid', gap: '1rem', marginBottom: '1.5rem' }}>
+            <input
+              type="text"
+              value={updatedUser.name}
+              onChange={(e) => setUpdatedUser({ ...updatedUser, name: e.target.value })}
+              style={{
+                padding: '0.8rem',
+                border: '1px solid #ddd',
+                borderRadius: '4px',
+                fontSize: '1rem'
+              }}
+              placeholder="Name"
+            />
+            <input
+              type="email"
+              value={updatedUser.email}
+              onChange={(e) => setUpdatedUser({ ...updatedUser, email: e.target.value })}
+              style={{
+                padding: '0.8rem',
+                border: '1px solid #ddd',
+                borderRadius: '4px',
+                fontSize: '1rem'
+              }}
+              placeholder="Email"
+            />
+          </div>
+        ) : (
+          <div style={{ marginBottom: '1.5rem' }}>
+            <div style={{ marginBottom: '1rem' }}>
+              <p style={{ 
+                margin: '0.5rem 0',
+                color: '#666',
+                fontSize: '1.1rem'
+              }}>
+                <span style={{ fontWeight: '600', color: '#333' }}>Name:</span> {user.name}
+              </p>
+              <p style={{ 
+                margin: '0.5rem 0',
+                color: '#666',
+                fontSize: '1.1rem'
+              }}>
+                <span style={{ fontWeight: '600', color: '#333' }}>Email:</span> {user.email}
+              </p>
+            </div>
+          </div>
+        )}
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div
+            style={{
+              backgroundColor: editing ? '#4CAF50' : '#f0f0f0',
+              color: editing ? 'white' : '#333',
+              padding: '0.8rem',
+              borderRadius: '4px',
+              textAlign: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              fontWeight: '500',
+              border: 'none'
+            }}
+            onClick={editing ? handleSaveClick : handleEditClick}
+            onMouseOver={(e) => !editing && (e.currentTarget.style.backgroundColor = '#e0e0e0')}
+            onMouseOut={(e) => !editing && (e.currentTarget.style.backgroundColor = '#f0f0f0')}
+          >
+            {editing ? 'Save Changes' : 'Edit Profile'}
+          </div>
+
+          <div
+            style={{
+              backgroundColor: '#f0f0f0',
+              color: '#333',
+              padding: '0.8rem',
+              borderRadius: '4px',
+              textAlign: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              fontWeight: '500',
+              border: 'none'
+            }}
+            onClick={handleLogout}
+            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#e0e0e0'}
+            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#f0f0f0'}
+          >
+            Logout
+          </div>
         </div>
-      ) : (
-        <div>
-          <p><strong>Name:</strong> {user.name}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <button onClick={handleEditClick}>Edit</button>
-        </div>
-      )}
+      </div>
     </div>
   );
 }
