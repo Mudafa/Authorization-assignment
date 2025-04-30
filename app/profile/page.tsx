@@ -21,7 +21,7 @@ export default function ProfilePage() {
 
       const data = await res.json();
       setUser(data);
-      setUpdatedUser(data); // Set the initial form values
+      setUpdatedUser(data);
     };
 
     fetchProfile();
@@ -32,7 +32,7 @@ export default function ProfilePage() {
   };
 
   const handleSaveClick = async () => {
-    const res = await fetch('/api/profile', { // Changed to the correct API endpoint
+    const res = await fetch('/api/profile', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -43,16 +43,15 @@ export default function ProfilePage() {
     if (res.ok) {
       const updatedData = await res.json();
       setUser(updatedData);
-      setEditing(false); // Exit editing mode
+      setEditing(false);
     } else {
-      // Handle error (e.g., show error message)
       alert('Failed to save changes');
     }
   };
 
   if (!user) return <p>Loading...</p>;
 
-    return (
+  return (
     <div style={{
       display: 'flex',
       justifyContent: 'center',
@@ -142,25 +141,6 @@ export default function ProfilePage() {
             onMouseOut={(e) => !editing && (e.currentTarget.style.backgroundColor = '#f0f0f0')}
           >
             {editing ? 'Save Changes' : 'Edit Profile'}
-          </div>
-
-          <div
-            style={{
-              backgroundColor: '#f0f0f0',
-              color: '#333',
-              padding: '0.8rem',
-              borderRadius: '4px',
-              textAlign: 'center',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              fontWeight: '500',
-              border: 'none'
-            }}
-            onClick={handleLogout}
-            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#e0e0e0'}
-            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#f0f0f0'}
-          >
-            Logout
           </div>
         </div>
       </div>
